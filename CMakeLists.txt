@@ -16,6 +16,12 @@ add_executable("${PROJECT_NAME}"
 	"Aether.cpp"
 	"pge.cpp"
 	"olcPixelGameEngine/olcPixelGameEngine.h"
+	"Graph.h"
+	"Graph.cpp"
+	"Vertex.h"
+	"Vertex.cpp"
+	"Snake.h"
+	"Snake.cpp"
 )
 
 include_directories(olcPixelGameEngine)

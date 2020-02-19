@@ -1,12 +1,13 @@
 #include "Aether.h"
 #include <stdlib.h>
-
+#include "Snake.h"
 int main()
 {
-	srand(0); // always same
-	double scale = 120;
-	Aether world;
-	if (world.Construct((uint32_t)(16.0*scale), (uint32_t)(9.0*scale), (uint32_t)std::max(1.0, 120 / scale), (uint32_t)std::max(1.0, 120 / scale)))
+	std::srand(0); // always same
+	size_t width = 5 * 2;
+	size_t height = 3 * 2;
+	Aether world(width, height);
+	if (world.Construct(width * Snake::CellSize, height * Snake::CellSize, 1, 1) )
 	{
 		world.Start();
 	}
