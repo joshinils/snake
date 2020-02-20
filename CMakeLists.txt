@@ -22,6 +22,10 @@ add_executable("${PROJECT_NAME}"
 	"Vertex.cpp"
 	"Snake.h"
 	"Snake.cpp"
+	"Snek.h"
+	"Snek.cpp"
+	"Limb.h"
+	"Limb.cpp"
 )
 
 include_directories(olcPixelGameEngine)

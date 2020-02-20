@@ -15,13 +15,13 @@ Snake::Snake(size_t width, size_t height)
 	: _width(width)
 	, _height(height)
 	, _graph(_width, _height)
+	, _snek(Limb(this->randomPos()))
 {
 	assert(_width % 2 == 0);
 	assert(_height % 2 == 0);
 	_graph.initializeHamiltonian();
 
 	this->_apple = this->randomPos();
-	this->_snek.push_back(this->randomPos());
 }
 
 Snake::~Snake()
@@ -68,9 +68,9 @@ void Snake::draw(olc::PixelGameEngine* const pge)
 	pge->SetPixelMode(olc::Pixel::ALPHA);
 
 	// draw snek
-	for(auto part : this->_snek)
+	for(Limb limb : this->_snek)
 	{
-		olc::vi2d pos = part * Snake::CellSize;
+		olc::vi2d pos = limb.getPos() * Snake::CellSize;
 		pge->FillRect(pos, olc::vi2d(Snake::CellSize, Snake::CellSize), olc::Pixel(0, 255, 0, 200));
 	}
 

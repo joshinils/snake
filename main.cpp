@@ -1,6 +1,7 @@
 #include "Aether.h"
 #include <stdlib.h>
 #include "Snake.h"
+
 int main()
 {
 	std::srand(0); // always same

@@ -2,7 +2,7 @@
 
 #include "olcPixelGameEngine/olcPixelGameEngine.h"
 #include "Graph.h"
-#include <list>
+#include "Snek.h"
 
 class Snake
 {
@@ -12,7 +12,12 @@ private:
 	size_t _height;
 	Graph _graph;
 	olc::vi2d _apple;
-	std::list<olc::vi2d> _snek;
+	Snek _snek;
+
+	bool lastDirectionNorth = false;
+	bool lastDirectionEast  = false;
+	bool lastDirectionSouth = false;
+	bool lastDirectionWest  = false;
 
 public:
 	Snake(size_t width, size_t height);

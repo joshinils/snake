@@ -3,12 +3,22 @@
 #include <iostream>
 #include "Vertex.h"
 #include <cassert>
+#include "olcPixelGameEngine/olcPixelGameEngine.h"
 
 Graph::Graph(size_t width, size_t height)
 	: _width(width)
 	, _height(height)
 	, _vertices(_height, std::vector<Vertex>(_width))
 {
+	// set positions
+	for(size_t row = 0; row < this->_height; ++row)
+	{
+		for(size_t col = 0; col < this->_width; ++col)
+		{
+			this->_vertices[row][col].pos = olc::vi2d(row, col);
+		}
+	}
+
 	// connect for later traversal
 	for(size_t row = 1; row < this->_height; ++row)
 	{

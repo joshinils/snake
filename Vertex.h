@@ -1,7 +1,19 @@
 #pragma once
+
+#include "olcPixelGameEngine/olcPixelGameEngine.h"
+
+//TODO idea: vertex has hasapple and haslimb
+
 class Vertex
 {
 public:
+	olc::vi2d pos;
+
+public:
+	Vertex()
+		: pos({-1, -1})
+	{ }
+
 	Vertex* north = nullptr;
 	Vertex* south = nullptr;
 	Vertex* east  = nullptr;
