@@ -1,0 +1,20 @@
+void FillCircle(int32_t x, int32_t y, int32_t radius, olc::Pixel p)
+    {
+        int y0 = radius;
+        int radsquare = radius * radius;
+        if (!radius) return;
+
+        auto drawline = [&](int sx, int ex, int ny)
+        {
+            for (int i = sx; i <= ex; i++)
+                Draw(i, ny, p);
+        };
+        drawline(x - radius, x + radius, y);
+        while (y0 >= 1)
+        {
+            int x0 = sqrt(radsquare - (y0 * y0));
+            drawline(x - x0, x + x0, y - y0);
+            drawline(x - x0, x + x0, y + y0);
+            y0--;
+        }
+    }
