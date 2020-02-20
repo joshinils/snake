@@ -29,6 +29,8 @@ Snake::~Snake()
 
 void Snake::draw(olc::PixelGameEngine* const pge)
 {
+	pge->SetPixelMode(olc::Pixel::NORMAL);
+
 	olc::vi2d horz(Snake::CellSizeHalf,                   0);
 	olc::vi2d vert(                  0, Snake::CellSizeHalf);
 
@@ -50,16 +52,20 @@ void Snake::draw(olc::PixelGameEngine* const pge)
 		{
 			const Vertex& v = this->_graph.getVertex(row, col);
 			olc::vi2d center(col * Snake::CellSize + Snake::CellSizeHalf, row * Snake::CellSize + Snake::CellSizeHalf);
-			if(v._north != nullptr)
-				pge->DrawLine(center, center - vert, v.walkableNorth ? olc::DARK_GREEN : olc::DARK_GREY);
-			if(v._south != nullptr)
-				pge->DrawLine(center, center + vert, v.walkableSouth ? olc::DARK_GREEN : olc::DARK_GREY);
-			if(v._east  != nullptr)
-				pge->DrawLine(center, center + horz, v.walkableEast  ? olc::DARK_GREEN : olc::DARK_GREY);
-			if(v._west  != nullptr)
-				pge->DrawLine(center, center - horz, v.walkableWest  ? olc::DARK_GREEN : olc::DARK_GREY);
+			const olc::Pixel& enabledColor  = olc::BLUE;
+			const olc::Pixel& disabledColor = olc::DARK_GREY;
+			if(v.north != nullptr)
+				pge->DrawLine(center, center - vert, v.walkableNorth ? enabledColor : disabledColor);
+			if(v.south != nullptr)
+				pge->DrawLine(center, center + vert, v.walkableSouth ? enabledColor : disabledColor);
+			if(v.east  != nullptr)
+				pge->DrawLine(center, center + horz, v.walkableEast  ? enabledColor : disabledColor);
+			if(v.west  != nullptr)
+				pge->DrawLine(center, center - horz, v.walkableWest  ? enabledColor : disabledColor);
 		}
 	}
+
+	pge->SetPixelMode(olc::Pixel::ALPHA);
 
 	// draw snek
 	for(auto part : this->_snek)
@@ -69,7 +75,7 @@ void Snake::draw(olc::PixelGameEngine* const pge)
 	}
 
 	// draw apple
-	pge->FillCircle(this->_apple * Snake::CellSize + horz + vert, Snake::CellSizeHalf*10, olc::Pixel(255, 0, 0, 200));
+	pge->FillCircle(this->_apple * Snake::CellSize + horz + vert, Snake::CellSizeHalf*0.8, olc::Pixel(255, 0, 0, 200));
 }
 
 void Snake::iterate()

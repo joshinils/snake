@@ -2,10 +2,10 @@
 class Vertex
 {
 public:
-	Vertex* _north = nullptr;
-	Vertex* _south = nullptr;
-	Vertex* _east  = nullptr;
-	Vertex* _west  = nullptr;
+	Vertex* north = nullptr;
+	Vertex* south = nullptr;
+	Vertex* east  = nullptr;
+	Vertex* west  = nullptr;
 
 	bool walkableNorth = false;
 	bool walkableSouth = false;
@@ -14,26 +14,114 @@ public:
 
 	void connectNorth(Vertex* north)
 	{
-		this->_north = north;
-		north->_south = this;
+		this->north = north;
+		north->south = this;
 	}
 
 	void connectSouth(Vertex* south)
 	{
-		this->_south = south;
-		south->_north = this;
+		this->south = south;
+		south->north = this;
 	}
 
 	void connectEast(Vertex* east)
 	{
-		this->_east = east;
-		east->_west = this;
+		this->east = east;
+		east->west = this;
 	}
 
 	void connectWest(Vertex* west)
 	{
-		this->_west = west;
-		west->_east = this;
+		this->west = west;
+		west->east = this;
+	}
+
+	/* north */
+	bool unblockNorth()
+	{
+		if(this->north == nullptr) return false;
+		this->walkableNorth = this->north->walkableSouth = true;
+		return true;
+	}
+
+	bool blockNorth()
+	{
+		if(this->north == nullptr) return false;
+		this->walkableNorth = this->north->walkableSouth = false;
+		return true;
+	}
+
+	bool swapBlockNorth()
+	{
+		if(this->north == nullptr) return false;
+		this->walkableNorth = this->north->walkableSouth = !this->walkableNorth;
+		return true;
+	}
+
+	/* south */
+	bool unblockSouth()
+	{
+		if(this->south == nullptr) return false;
+		this->walkableSouth = this->south->walkableNorth = true;
+		return true;
+	}
+
+	bool blockSouth()
+	{
+		if(this->south == nullptr) return false;
+		this->walkableSouth = this->south->walkableNorth = false;
+		return true;
+	}
+
+	bool swapBlockSouth()
+	{
+		if(this->south == nullptr) return false;
+		this->walkableSouth = this->south->walkableNorth = !this->walkableSouth;
+		return true;
+	}
+
+	/* east */
+	bool unblockEast()
+	{
+		if(this->east == nullptr) return false;
+		this->walkableEast = this->east->walkableWest = true;
+		return true;
+	}
+
+	bool blockEast()
+	{
+		if(this->east == nullptr) return false;
+		this->walkableEast = this->east->walkableWest = false;
+		return true;
+	}
+
+	bool swapBlockEast()
+	{
+		if(this->east == nullptr) return false;
+		this->walkableEast = this->east->walkableWest = !this->walkableEast;
+		return true;
+	}
+
+	/* west */
+	bool unblockWest()
+	{
+		if(this->west == nullptr) return false;
+		this->walkableWest = this->west->walkableEast = true;
+		return true;
+	}
+
+	bool blockWest()
+	{
+		if(this->west == nullptr) return false;
+		this->walkableWest = this->west->walkableEast = false;
+		return true;
+	}
+
+	bool swapBlockWest()
+	{
+		if(this->west == nullptr) return false;
+		this->walkableWest = this->west->walkableEast = !this->walkableWest;
+		return true;
 	}
 };
 
