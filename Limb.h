@@ -6,13 +6,11 @@
 class Limb
 {
 private:
-	olc::vi2d _pos;
 	Vertex* _vert;
 
 public:
-	Limb(olc::vi2d pos = {-1, -1}, Vertex* vert = nullptr)
-		: _pos(pos)
-		, _vert(vert)
+	Limb(Vertex* vert = nullptr)
+		: _vert(vert)
 	{ }
 
 	~Limb() = default;
@@ -24,6 +22,17 @@ public:
 
 	olc::vi2d getPos() const
 	{
-		return _pos;
+		return this->_vert->pos;
+	}
+
+	// initialize vertex if it is nullptr
+	bool setVert(Vertex* vert)
+	{
+		if(this->_vert == nullptr)
+		{
+			_vert = vert;
+			return true;
+		}
+		return false;
 	}
 };

@@ -81,9 +81,14 @@ void Graph::initializeHamiltonian()
 	}
 }
 
-const Vertex & Graph::getVertex(size_t row, size_t col)
+Vertex& Graph::getVertex(size_t row, size_t col)
 {
 	assert(row < this->_vertices.size());
 	assert(col < this->_vertices[0].size());
 	return this->_vertices[row][col];
+}
+
+Vertex& Graph::getVertex(const olc::vi2d& pos)
+{
+	return this->getVertex(pos.x, pos.y);
 }

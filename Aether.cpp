@@ -23,8 +23,12 @@ bool Aether::OnUserUpdate(float fElapsedTime)
 {
 	this->Clear(olc::BLACK);
 
-	this->_snake.iterate();
+	if(!this->_snake.iterate())
+	{
+		system("pause");
+	}
 	this->_snake.draw(this);
+	system("pause");
 
 	return true;
 }

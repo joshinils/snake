@@ -2,8 +2,6 @@
 
 #include "olcPixelGameEngine/olcPixelGameEngine.h"
 
-//TODO idea: vertex has hasapple and haslimb
-
 class Vertex
 {
 public:
@@ -23,6 +21,9 @@ public:
 	bool walkableSouth = false;
 	bool walkableEast  = false;
 	bool walkableWest  = false;
+
+	bool hasApple = false;
+	bool hasLimb = false;
 
 	void connectNorth(Vertex* north)
 	{

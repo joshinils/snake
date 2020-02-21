@@ -11,18 +11,15 @@ private:
 	Limb _lastTailPos;
 
 public:
-	Snek(Limb head)
-		: _snek(1, head)
-	{ }
-
+	Snek() = default;
 	~Snek() = default;
 
-	auto begin()
+	std::list<Limb>::iterator begin()
 	{
 		return this->_snek.begin();
 	}
 
-	auto end()
+	std::list<Limb>::iterator end()
 	{
 		return this->_snek.end();
 	}
@@ -34,13 +31,25 @@ public:
 
 	void moveTo(const Limb& l)
 	{
+		l.getVert()->hasLimb = true;
 		this->_snek.push_front(l);
-		_lastTailPos = this->_snek.back();
-		this->_snek.pop_back();
+		if(l.getVert()->hasApple)
+		{
+			l.getVert()->hasApple = false;
+			return;
+		}
+
+		// keep first limb, aka starting pos of head
+		if(this->length() > 1)
+		{
+			this->_lastTailPos = this->_snek.back();
+			this->_lastTailPos.getVert()->hasLimb = false;
+			this->_snek.pop_back();
+		}
 	}
 
-	void eatFrom(const Limb& l)
+	size_t length()
 	{
-		this->_snek.push_front(l);
+		return this->_snek.size();
 	}
 };

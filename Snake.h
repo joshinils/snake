@@ -23,11 +23,13 @@ public:
 	Snake(size_t width, size_t height);
 	~Snake();
 
-	static const size_t CellSizeHalf = 64;
-	static const size_t CellSize = CellSizeHalf * 2;
+	// constants for drawing
+	static const size_t cellSizeHalf = 64;
+	static const size_t cellSize = cellSizeHalf * 2;
+	static const uint8_t opacity = 150;
 
 	void draw(olc::PixelGameEngine* const pge);
-	void iterate();
+	bool iterate();
 
 	olc::vi2d randomPos();
 };

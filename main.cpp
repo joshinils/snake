@@ -8,7 +8,7 @@ int main()
 	size_t width = 5 * 2;
 	size_t height = 3 * 2;
 	Aether world(width, height);
-	if (world.Construct(width * Snake::CellSize, height * Snake::CellSize, 1, 1) )
+	if (world.Construct(width * Snake::cellSize, height * Snake::cellSize, 1, 1) )
 	{
 		world.Start();
 	}
