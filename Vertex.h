@@ -24,6 +24,7 @@ public:
 
 	bool hasApple = false;
 	bool hasLimb = false;
+	bool hadTail = false;
 
 	void connectNorth(Vertex* north)
 	{

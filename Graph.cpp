@@ -15,7 +15,7 @@ Graph::Graph(size_t width, size_t height)
 	{
 		for(size_t col = 0; col < this->_width; ++col)
 		{
-			this->_vertices[row][col].pos = olc::vi2d(row, col);
+			this->_vertices[row][col].pos = olc::vi2d(col, row); // i dont understand why the pos is swapped in its arguments
 		}
 	}
 
@@ -81,14 +81,14 @@ void Graph::initializeHamiltonian()
 	}
 }
 
-Vertex& Graph::getVertex(size_t row, size_t col)
+Vertex* Graph::getVertex(size_t row, size_t col)
 {
 	assert(row < this->_vertices.size());
 	assert(col < this->_vertices[0].size());
-	return this->_vertices[row][col];
+	return &this->_vertices[row][col];
 }
 
-Vertex& Graph::getVertex(const olc::vi2d& pos)
+Vertex* Graph::getVertex(const olc::vi2d& pos)
 {
-	return this->getVertex(pos.x, pos.y);
+	return this->getVertex(pos.y, pos.x);
 }

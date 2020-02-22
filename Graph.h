@@ -15,7 +15,7 @@ public:
 	~Graph();
 
 	void initializeHamiltonian();
-	Vertex& getVertex(size_t row, size_t col);
-	Vertex& getVertex(const olc::vi2d& pos);
+	Vertex* getVertex(size_t row, size_t col);
+	Vertex* getVertex(const olc::vi2d& pos);
 };
 

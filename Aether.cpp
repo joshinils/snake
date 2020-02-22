@@ -28,7 +28,7 @@ bool Aether::OnUserUpdate(float fElapsedTime)
 		system("pause");
 	}
 	this->_snake.draw(this);
-	system("pause");
+//	system("pause");
 
 	return true;
 }
