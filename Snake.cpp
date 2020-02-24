@@ -8,7 +8,7 @@ olc::vi2d Snake::randomPos()
 	static double foo = this->_width / (double)RAND_MAX;
 	static double bar = this->_height / (double)RAND_MAX;
 
-	return olc::vi2d( int32_t(std::rand() * foo), int32_t(std::rand() * bar));
+	return olc::vi2d( std::min(int32_t(std::rand() * foo), int32_t(this->_width-1)), std::min(int32_t(std::rand() * bar), int32_t(this->_height-1)));
 }
 
 Snake::Snake(size_t width, size_t height)
@@ -53,6 +53,8 @@ void Snake::draw(olc::PixelGameEngine* const pge)
 		}
 	}
 
+	this->_graph.calculateDistances(this->_graph.getVertex(this->_apple));
+
 	for(size_t col = 0; col < this->_width; ++col)
 	{
 		for(size_t row = 0; row < this->_height; ++row)
@@ -69,6 +71,9 @@ void Snake::draw(olc::PixelGameEngine* const pge)
 				pge->DrawLine(center, center + horz, v->walkableEast  ? enabledColor : disabledColor);
 			if(v->west  != nullptr)
 				pge->DrawLine(center, center - horz, v->walkableWest  ? enabledColor : disabledColor);
+
+			// draw distances
+			pge->DrawString(center -olc::vi2d{24, 24}, std::to_string(v->distanceToApple), olc::DARK_GREY, 1);
 		}
 	}
 
@@ -101,8 +106,10 @@ void Snake::draw(olc::PixelGameEngine* const pge)
 
 	// draw apple
 	pge->FillCircle(this->_apple * Snake::cellSize + horz + vert, int32_t(Snake::cellSizeHalf*0.8), olc::Pixel(255, 0, 0, Snake::opacity));
+
 }
 
+// returns success of iteration
 bool Snake::iterate()
 {
 	Limb& head = this->_snek.getHead();
@@ -126,6 +133,12 @@ bool Snake::iterate()
 
 	if(hasEaten)
 	{
+		if(this->_snek.length() == this->_width * this->_height)
+		{
+			// board full, one has won
+			return false;
+		}
+
 		// choose next apple position, until it finds a spot where there is no limb
 		while(this->_graph.getVertex(this->_apple)->hasLimb)
 		{

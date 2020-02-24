@@ -15,7 +15,7 @@ Graph::Graph(size_t width, size_t height)
 	{
 		for(size_t col = 0; col < this->_width; ++col)
 		{
-			this->_vertices[row][col].pos = olc::vi2d(col, row); // i dont understand why the pos is swapped in its arguments
+			this->_vertices[row][col].pos = olc::vi2d(int32_t(col), int32_t(row) ); // i dont understand why the pos is swapped in its arguments
 		}
 	}
 
@@ -78,6 +78,69 @@ void Graph::initializeHamiltonian()
 			this->_vertices[row][1].unblockSouth();
 		else
 			this->_vertices[row][this->_width-1].unblockSouth();
+	}
+}
+
+void Graph::calculateDistances(Vertex* origin)
+{
+	origin->distanceToApple = 0;
+	Vertex* n = origin->north;
+	Vertex* s = origin->south;
+	Vertex* e = origin->east;
+	Vertex* w = origin->west;
+
+	while(e != nullptr)
+	{
+		e->distanceToApple = e->west->distanceToApple +1;
+		e = e->east;
+	}
+
+	while(w != nullptr)
+	{
+		w->distanceToApple = w->east->distanceToApple +1;
+		w = w->west;
+	}
+
+	while(n != nullptr)
+	{
+		n->distanceToApple = n->south->distanceToApple +1;
+
+		Vertex* e = n->east;
+		Vertex* w = n->west;
+		while(e != nullptr)
+		{
+			e->distanceToApple = e->west->distanceToApple +1;
+			e = e->east;
+		}
+
+		while(w != nullptr)
+		{
+			w->distanceToApple = w->east->distanceToApple +1;
+			w = w->west;
+		}
+
+		n = n->north;
+	}
+
+	while(s != nullptr)
+	{
+		s->distanceToApple = s->north->distanceToApple +1;
+
+		Vertex* e = s->east;
+		Vertex* w = s->west;
+		while(e != nullptr)
+		{
+			e->distanceToApple = e->west->distanceToApple +1;
+			e = e->east;
+		}
+
+		while(w != nullptr)
+		{
+			w->distanceToApple = w->east->distanceToApple +1;
+			w = w->west;
+		}
+
+		s = s->south;
 	}
 }
 

@@ -26,6 +26,8 @@ public:
 	bool hasLimb = false;
 	bool hadTail = false;
 
+	double distanceToApple = 0;
+
 	void connectNorth(Vertex* north)
 	{
 		this->north = north;

@@ -21,12 +21,20 @@ bool Aether::OnUserCreate()
 
 bool Aether::OnUserUpdate(float fElapsedTime)
 {
+//	while(this->_snake.iterate());
+//	return false;
 	this->Clear(olc::BLACK);
+
+	static int iterations = 0;
 
 	if(!this->_snake.iterate())
 	{
+		std::cout << iterations << std::endl;
+		return false;
 		system("pause");
 	}
+	++iterations;
+
 	this->_snake.draw(this);
 //	system("pause");
 

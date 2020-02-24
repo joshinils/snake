@@ -15,6 +15,8 @@ public:
 	~Graph();
 
 	void initializeHamiltonian();
+	void calculateDistances(Vertex* origin);
+
 	Vertex* getVertex(size_t row, size_t col);
 	Vertex* getVertex(const olc::vi2d& pos);
 };
