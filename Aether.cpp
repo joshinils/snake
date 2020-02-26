@@ -27,14 +27,18 @@ bool Aether::OnUserUpdate(float fElapsedTime)
 
 	static int iterations = 0;
 
-	if(!this->_snake.iterate())
-	{
-		std::cout << iterations << std::endl;
-		return false;
-		system("pause");
-	}
-	++iterations;
 
+	if (true) // DO ITERATE? this is a debug thingy
+	{
+		if (!this->_snake.iterate())
+		{
+			std::cout << iterations << std::endl;
+			return false;
+			system("pause");
+		}
+		++iterations;
+
+	}
 	this->_snake.draw(this);
 //	system("pause");
 

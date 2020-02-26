@@ -24,9 +24,10 @@ public:
 	~Snake();
 
 	// constants for drawing
-	static const size_t cellSizeHalf = 64;
-	static const size_t cellSize = cellSizeHalf * 2;
-	static const uint8_t opacity = 150;
+	static const size_t cellSizeHalf;
+	static const size_t cellSize;
+	static const uint8_t opacity;
+	static const double limbSizeMult;
 
 	void draw(olc::PixelGameEngine* const pge);
 	bool iterate();

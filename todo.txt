@@ -1,0 +1,14 @@
+a* for every node, respecting presence of snake
+
+graph path force, break
+	graph repair, until cycles exist, no leafs
+	connect separete cycles
+
+color cycles differently
+
+color a* path
+
+draw snake as connected smaller limbs, to be able to trace its path
+
+thicker line for path to follow
+	

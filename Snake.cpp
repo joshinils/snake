@@ -3,6 +3,12 @@
 #include "olcPixelGameEngine/olcPixelGameEngine.h"
 #include <stdlib.h>
 
+const size_t Snake::cellSizeHalf = 64;
+const size_t Snake::cellSize = cellSizeHalf * 2;
+const uint8_t Snake::opacity = 150;
+const double Snake::limbSizeMult = 0.8;
+
+
 olc::vi2d Snake::randomPos()
 {
 	static double foo = this->_width / (double)RAND_MAX;
@@ -79,15 +85,23 @@ void Snake::draw(olc::PixelGameEngine* const pge)
 
 	pge->SetPixelMode(olc::Pixel::ALPHA);
 
+	olc::vi2d limbSize = Snake::limbSizeMult * olc::vi2d(Snake::cellSize, Snake::cellSize);
+	olc::vi2d limbSizeOffset = 0.5 * (olc::vi2d(Snake::cellSize, Snake::cellSize) - limbSize);
+
+	std::cout << limbSize.x << ", " << limbSize.y << std::endl;
+
 	// draw snek
 	for(Limb limb : this->_snek)
 	{
 		olc::vi2d pos = limb.getPos() * Snake::cellSize;
 //		std::cout << "limbpos: (" << limb.getPos().x << ", " << limb.getPos().y << ")" << std::endl;
-		pge->FillRect(pos, olc::vi2d(Snake::cellSize, Snake::cellSize), olc::Pixel(0, 255, 0, Snake::opacity));
+		pge->FillRect(pos + limbSizeOffset, limbSize, olc::Pixel(0, 255, 0, Snake::opacity));
 
-		Vertex* appleVert = this->_graph.getVertex(this->_apple);
-		pge->FillCircle(appleVert->pos * Snake::cellSize + horz + vert, 8, olc::Pixel(255,   0,   0, Snake::opacity));
+		//TODO fill space betweem this limb and next, if there is a next
+
+
+		//Vertex* appleVert = this->_graph.getVertex(this->_apple);
+		//pge->FillCircle(appleVert->pos * Snake::cellSize + horz + vert, 8, olc::Pixel(255,   0,   0, Snake::opacity));
 
 
 		// debug code:
